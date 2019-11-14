@@ -1,4 +1,5 @@
 export const SET_USERS = "SET_USERS";
+export const SET_USER = "SET_USER";
 
 export function setUsers(users = []) {
   return {
@@ -6,6 +7,16 @@ export function setUsers(users = []) {
     users,
     meta: {
       log: "Replace users with new users"
+    }
+  };
+}
+
+export function setUser(user = {}) {
+  return {
+    type: SET_USER,
+    user,
+    meta: {
+      log: "Replace user with new user"
     }
   };
 }

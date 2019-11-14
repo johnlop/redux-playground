@@ -1,13 +1,11 @@
 import { useDispatch } from "react-redux";
-import { toggleLoader } from "../../store/actions/ui";
 import { apiRequest } from "../../store/actions/api";
-import { setUsers } from "../../store/actions/users";
+import { setUsers, setUser } from "../../store/actions/users";
 
 export function useUserActions() {
   const dispatch = useDispatch();
 
   const fetchAllUsers = () => {
-    dispatch(toggleLoader({ visible: true, trigger: "from users" }));
     dispatch(
       apiRequest({
         url: "/users",
@@ -17,12 +15,26 @@ export function useUserActions() {
     );
   };
 
+  const fetchUser = id => {
+    dispatch(
+      apiRequest({
+        url: "/users/" + id,
+        method: "GET",
+        onSuccess: onLoadUserSuccess
+      })
+    );
+  };
+
   const onLoadUsersSuccess = users => {
     dispatch(setUsers(users));
-    dispatch(toggleLoader({ visible: false, trigger: "from users" }));
+  };
+
+  const onLoadUserSuccess = user => {
+    dispatch(setUser(user));
   };
 
   return {
-    fetchAllUsers
+    fetchAllUsers,
+    fetchUser
   };
 }
