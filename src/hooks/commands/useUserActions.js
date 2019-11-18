@@ -1,18 +1,22 @@
-import { useDispatch } from "react-redux";
+import { useDispatch, useStore } from "react-redux";
 import { apiRequest } from "../../store/actions/api";
-import { setUsers, setUser } from "../../store/actions/users";
+import { setUsers, setUser, updateUser } from "../../store/actions/users";
 
 export function useUserActions() {
   const dispatch = useDispatch();
+  const { getState } = useStore();
 
-  const fetchAllUsers = () => {
-    dispatch(
-      apiRequest({
-        url: "/users",
-        method: "GET",
-        onSuccess: onLoadUsersSuccess
-      })
-    );
+  const fetchAllUsers = (force = false) => {
+    const { users } = getState();
+    if (force || !users.collection) {
+      dispatch(
+        apiRequest({
+          url: "/users",
+          method: "GET",
+          onSuccess: onLoadUsersSuccess
+        })
+      );
+    }
   };
 
   const fetchUser = id => {
@@ -33,8 +37,13 @@ export function useUserActions() {
     dispatch(setUser(user));
   };
 
+  const changeUser = id => {
+    dispatch(updateUser(id));
+  };
+
   return {
     fetchAllUsers,
-    fetchUser
+    fetchUser,
+    changeUser
   };
 }

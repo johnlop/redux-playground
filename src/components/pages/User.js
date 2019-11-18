@@ -7,7 +7,7 @@ import { useAlbumsSelectors } from "../../hooks/selectors/useAlbumsSelectors";
 
 const User = ({ match }) => {
   const { id } = match.params;
-  const { fetchUser } = useUserActions();
+  const { fetchUser, changeUser } = useUserActions();
   const { fetchUserAlbums } = useAlbumActions();
   const { user } = useUsersSelectors(id);
   const { userAlbums } = useAlbumsSelectors();
@@ -17,10 +17,15 @@ const User = ({ match }) => {
     fetchUserAlbums(id);
   }, []);
 
+  const update = () => {
+    changeUser(id);
+  };
+
   return (
     <div>
       <h2>{user.name}</h2>
       <p>{user.email}</p>
+      <button onClick={update}>x</button>
       <h3>Albums</h3>
       <ul>
         {userAlbums.map(album => (

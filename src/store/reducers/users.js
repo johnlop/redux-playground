@@ -1,4 +1,4 @@
-import { SET_USERS, SET_USER } from "../actions/users";
+import { SET_USERS, SET_USER, UPDATE_USER } from "../actions/users";
 
 const defaultStore = {
   map: {}
@@ -15,6 +15,10 @@ export function usersReducer(users = defaultStore, action) {
   }
   if (action.type === SET_USER) {
     users.map[action.user.id] = action.user;
+    return users;
+  }
+  if (action.type === UPDATE_USER) {
+    users.map[action.id] = {};
     return users;
   }
   return users;

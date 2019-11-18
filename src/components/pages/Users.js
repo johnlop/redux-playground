@@ -15,7 +15,7 @@ const Users = () => {
   return (
     <div>
       <h2>Users</h2>
-      <button onClick={() => fetchAllUsers()}>Reload</button>
+      <button onClick={() => fetchAllUsers(true)}>Reload</button>
       <ul>
         {users.map(user => (
           <li key={user.id}>
