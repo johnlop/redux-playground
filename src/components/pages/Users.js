@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect } from "react";
-import { Link as a } from "react-dom";
+import { Link } from "react-router-dom";
 import { useUserActions } from "../../hooks/commands/useUserActions";
 import { useUsersSelectors } from "../../hooks/selectors/useUsersSelectors";
 
@@ -19,9 +19,7 @@ const Users = () => {
       <ul>
         {users.map(user => (
           <li key={user.id}>
-            <a key={user.id} href={"/user/" + user.id}>
-              {user.name}
-            </a>
+            <Link to={"/user/" + user.id}>{user.name}</Link>
           </li>
         ))}
       </ul>

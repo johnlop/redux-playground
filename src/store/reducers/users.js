@@ -1,18 +1,21 @@
 import { SET_USERS, SET_USER } from "../actions/users";
 
-export function usersReducer(users = [], action) {
+const defaultStore = {
+  map: {}
+};
+
+export function usersReducer(users = defaultStore, action) {
   if (action.type === SET_USERS) {
-    const userMap = {};
+    users.collection = action.users;
+    users.map = {};
     action.users.forEach(user => {
-      userMap[user.id] = user;
+      users.map[user.id] = user;
     });
-    // return userMap;
-    return action.users;
+    return users;
+  }
+  if (action.type === SET_USER) {
+    users.map[action.user.id] = action.user;
+    return users;
   }
   return users;
-}
-
-export function userReducer(user = {}, action) {
-  if (action.type === SET_USER) return action.user;
-  return user;
 }

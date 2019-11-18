@@ -9,7 +9,7 @@ const User = ({ match }) => {
   const { id } = match.params;
   const { fetchUser } = useUserActions();
   const { fetchUserAlbums } = useAlbumActions();
-  const { user } = useUsersSelectors();
+  const { user } = useUsersSelectors(id);
   const { userAlbums } = useAlbumsSelectors();
 
   useEffect(() => {
@@ -19,12 +19,9 @@ const User = ({ match }) => {
 
   return (
     <div>
-      <h2>
-        {id} - {user.name}
-      </h2>
-      {user.email}
-
-      <h2>Albums</h2>
+      <h2>{user.name}</h2>
+      <p>{user.email}</p>
+      <h3>Albums</h3>
       <ul>
         {userAlbums.map(album => (
           <li key={album.id}>{album.title}</li>

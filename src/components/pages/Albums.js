@@ -1,5 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect } from "react";
+import { Link } from "react-router-dom";
 import { useAlbumActions } from "../../hooks/commands/useAlbumActions";
 import { useAlbumsSelectors } from "../../hooks/selectors/useAlbumsSelectors";
 
@@ -18,7 +19,7 @@ const Albums = () => {
       <ul>
         {albums.map(album => (
           <li key={album.id}>
-            {album.title} (<a href={"/user/" + album.userId}>user</a>)
+            {album.title} (<Link to={"/user/" + album.userId}>user</Link>)
           </li>
         ))}
       </ul>
